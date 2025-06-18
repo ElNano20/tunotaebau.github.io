@@ -1,0 +1,396 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora EBAU - Nota de Acceso Universidad</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .ebau-gradient {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .ebau-card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .ebau-card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <svg class="h-8 w-8 text-blue-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="text-xl font-bold text-gray-900">Calculadora EBAU</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-blue-50 to-indigo-100 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
+                Calcula tu <span class="text-blue-600">Selectividad</span>
+            </h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                Obtén al instante tu nota de acceso a la universidad. Compatible con todas las comunidades autónomas e idiomas oficiales.
+            </p>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Calculadora EBAU</h2>
+                <p class="text-xl text-gray-600">Introduce tus calificaciones paso a paso y obtén tu nota de acceso</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Calculator Form -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-lg shadow-lg border border-gray-200 p-8">
+                        <form id="ebauForm" class="space-y-8">
+                            <!-- Bachillerato Average -->
+                            <div class="bg-blue-50 rounded-xl p-6">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">1</div>
+                                    <h3 class="text-lg font-semibold text-gray-900">Nota media de Bachillerato</h3>
+                                </div>
+                                <div class="relative">
+                                    <input type="number" id="bachiller" step="0.01" min="0" max="10" placeholder="Ej: 7.50" class="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg pr-12 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                    <div class="absolute right-3 top-3 text-gray-400 text-sm">/10</div>
+                                </div>
+                                <p class="text-sm text-gray-600 mt-2">Esta nota representa el 60% de tu calificación final</p>
+                            </div>
+
+                            <!-- Mandatory Subjects -->
+                            <div class="bg-gray-50 rounded-xl p-6">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">2</div>
+                                    <h3 class="text-lg font-semibold text-gray-900">Fase Obligatoria (Selectividad)</h3>
+                                </div>
+
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div class="space-y-2">
+                                        <label class="block text-sm font-medium text-gray-700">Lengua Castellana y Literatura</label>
+                                        <div class="relative">
+                                            <input type="number" id="lengua_castellana" step="0.01" min="0" max="10" placeholder="0.00" class="w-full px-4 py-3 border border-gray-300 rounded-lg pr-12 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                            <div class="absolute right-3 top-3 text-gray-400 text-sm">/10</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-2">
+                                        <label class="block text-sm font-medium text-gray-700">Lengua Cooficial <span class="text-xs text-gray-500">(Opcional)</span></label>
+                                        <div class="relative">
+                                            <input type="number" id="lengua_cooficial" step="0.01" min="0" max="10" placeholder="0.00" class="w-full px-4 py-3 border border-gray-300 rounded-lg pr-12 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                            <div class="absolute right-3 top-3 text-gray-400 text-sm">/10</div>
+                                        </div>
+                                        <p class="text-xs text-gray-500">Euskera, Catalán, Gallego, etc.</p>
+                                    </div>
+
+                                    <div class="space-y-2">
+                                        <label class="block text-sm font-medium text-gray-700">Historia de España o Historia de la Filosofía</label>
+                                        <div class="relative">
+                                            <input type="number" id="historia" step="0.01" min="0" max="10" placeholder="0.00" class="w-full px-4 py-3 border border-gray-300 rounded-lg pr-12 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                            <div class="absolute right-3 top-3 text-gray-400 text-sm">/10</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-2">
+                                        <label class="block text-sm font-medium text-gray-700">Idioma Extranjero</label>
+                                        <div class="relative">
+                                            <input type="number" id="idioma_extranjero" step="0.01" min="0" max="10" placeholder="0.00" class="w-full px-4 py-3 border border-gray-300 rounded-lg pr-12 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                            <div class="absolute right-3 top-3 text-gray-400 text-sm">/10</div>
+                                        </div>
+                                        <p class="text-xs text-gray-500">Inglés, Francés, Alemán, etc.</p>
+                                    </div>
+
+                                    <div class="space-y-2 md:col-span-2">
+                                        <label class="block text-sm font-medium text-gray-700">Materia Troncal de Modalidad</label>
+                                        <div class="relative">
+                                            <input type="number" id="materia_troncal" step="0.01" min="0" max="10" placeholder="0.00" class="w-full px-4 py-3 border border-gray-300 rounded-lg pr-12 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                            <div class="absolute right-3 top-3 text-gray-400 text-sm">/10</div>
+                                        </div>
+                                        <p class="text-xs text-gray-500">Matemáticas, Latín, Fundamentos del Arte, etc.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Voluntary Subjects -->
+                            <div class="bg-amber-50 rounded-xl p-6">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-8 h-8 bg-amber-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">3</div>
+                                    <h3 class="text-lg font-semibold text-gray-900">Fase Voluntaria</h3>
+                                    <span class="ml-2 px-2 py-1 bg-amber-100 text-amber-700 text-xs rounded-full">Opcional</span>
+                                </div>
+
+                                <p class="text-sm text-gray-600 mb-6">Puedes elegir hasta 2 materias para subir tu nota (máximo +4 puntos)</p>
+
+                                <div class="space-y-6">
+                                    <div class="grid md:grid-cols-2 gap-4">
+                                        <div class="space-y-2">
+                                            <label class="block text-sm font-medium text-gray-700">Materia Voluntaria 1</label>
+                                            <select id="materia1_type" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                                <option value="">Seleccionar materia</option>
+                                                <option value="matematicas2">Matemáticas II (0.2)</option>
+                                                <option value="fisica">Física (0.2)</option>
+                                                <option value="quimica">Química (0.2)</option>
+                                                <option value="biologia">Biología (0.2)</option>
+                                                <option value="dibujo_tecnico2">Dibujo Técnico II (0.2)</option>
+                                                <option value="latin2">Latín II (0.2)</option>
+                                                <option value="griego2">Griego II (0.2)</option>
+                                                <option value="historia_arte">Historia del Arte (0.2)</option>
+                                                <option value="economia_empresa">Economía de la Empresa (0.2)</option>
+                                                <option value="geografia">Geografía (0.2)</option>
+                                            </select>
+                                        </div>
+                                        <div class="space-y-2">
+                                            <label class="block text-sm font-medium text-gray-700">Nota</label>
+                                            <div class="relative">
+                                                <input type="number" id="materia1" step="0.01" min="0" max="10" placeholder="0.00" class="w-full px-4 py-3 border border-gray-300 rounded-lg pr-12 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                                <div class="absolute right-3 top-3 text-gray-400 text-sm">/10</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid md:grid-cols-2 gap-4">
+                                        <div class="space-y-2">
+                                            <label class="block text-sm font-medium text-gray-700">Materia Voluntaria 2</label>
+                                            <select id="materia2_type" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                                <option value="">Seleccionar materia</option>
+                                                <option value="matematicas2">Matemáticas II (0.2)</option>
+                                                <option value="fisica">Física (0.2)</option>
+                                                <option value="quimica">Química (0.2)</option>
+                                                <option value="biologia">Biología (0.2)</option>
+                                                <option value="dibujo_tecnico2">Dibujo Técnico II (0.2)</option>
+                                                <option value="latin2">Latín II (0.2)</option>
+                                                <option value="griego2">Griego II (0.2)</option>
+                                                <option value="historia_arte">Historia del Arte (0.2)</option>
+                                                <option value="economia_empresa">Economía de la Empresa (0.2)</option>
+                                                <option value="geografia">Geografía (0.2)</option>
+                                            </select>
+                                        </div>
+                                        <div class="space-y-2">
+                                            <label class="block text-sm font-medium text-gray-700">Nota</label>
+                                            <div class="relative">
+                                                <input type="number" id="materia2" step="0.01" min="0" max="10" placeholder="0.00" class="w-full px-4 py-3 border border-gray-300 rounded-lg pr-12 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                                <div class="absolute right-3 top-3 text-gray-400 text-sm">/10</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Calculate Button -->
+                            <div class="text-center">
+                                <button type="button" onclick="calculateEBAU()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">
+                                    <svg class="inline mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                                    </svg>
+                                    Calcular Nota EBAU
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Results Panel -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-lg shadow-lg border border-gray-200 p-6 sticky top-24">
+                        <div class="flex items-center mb-6">
+                            <svg class="text-blue-500 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                            <h3 class="text-lg font-semibold text-gray-900">Resultados</h3>
+                        </div>
+
+                        <!-- Final Score -->
+                        <div class="text-center ebau-gradient rounded-xl p-6 mb-6">
+                            <p class="text-sm font-medium text-gray-600 mb-2">Nota Final EBAU</p>
+                            <div id="finalScore" class="text-4xl font-bold text-blue-600">--</div>
+                            <p class="text-sm text-gray-500 mt-1">sobre 14</p>
+                        </div>
+
+                        <!-- Results Breakdown -->
+                        <div id="resultsBreakdown" class="space-y-4 hidden">
+                            <div class="bg-green-50 rounded-lg p-4 border border-green-200">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm font-medium text-green-800">Nota media de Selectividad</span>
+                                    <span id="mandatoryAverage" class="font-bold text-green-900">--</span>
+                                </div>
+                            </div>
+
+                            <div class="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm font-medium text-blue-800">Calificación definitiva</span>
+                                    <span id="accessPhaseScore" class="font-bold text-blue-900">--</span>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3">
+                                <h4 class="font-medium text-gray-700 text-sm">Desglose:</h4>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Bachillerato (60%)</span>
+                                        <span id="bachillerContribution" class="font-medium">--</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Selectividad (40%)</span>
+                                        <span id="mandatoryContribution" class="font-medium">--</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Fase voluntaria</span>
+                                        <span id="voluntaryContribution" class="font-medium">--</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tips -->
+                            <div class="bg-amber-50 rounded-lg p-4 border border-amber-200 mt-6">
+                                <div class="flex items-start">
+                                    <svg class="text-amber-500 mr-2 h-4 w-4 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                    </svg>
+                                    <div>
+                                        <h5 class="font-medium text-amber-800 text-sm">Consejo</h5>
+                                        <p class="text-amber-700 text-xs mt-1" id="advice">Completa el formulario para ver tu nota calculada</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-400">© 2024 Calculadora EBAU. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        function calculateEBAU() {
+            // Get form values
+            const bachiller = parseFloat(document.getElementById('bachiller').value) || 0;
+            const lengua_castellana = parseFloat(document.getElementById('lengua_castellana').value) || 0;
+            const lengua_cooficial = parseFloat(document.getElementById('lengua_cooficial').value) || 0;
+            const historia = parseFloat(document.getElementById('historia').value) || 0;
+            const idioma_extranjero = parseFloat(document.getElementById('idioma_extranjero').value) || 0;
+            const materia_troncal = parseFloat(document.getElementById('materia_troncal').value) || 0;
+            
+            const materia1_type = document.getElementById('materia1_type').value;
+            const materia1 = parseFloat(document.getElementById('materia1').value) || 0;
+            const materia2_type = document.getElementById('materia2_type').value;
+            const materia2 = parseFloat(document.getElementById('materia2').value) || 0;
+
+            // Validate required fields
+            if (!bachiller || !lengua_castellana || !historia || !idioma_extranjero || !materia_troncal) {
+                alert('Por favor, completa todos los campos obligatorios');
+                return;
+            }
+
+            // Calculate mandatory subjects average
+            let mandatorySubjects = [lengua_castellana, historia, idioma_extranjero, materia_troncal];
+            
+            // Add co-official language if there's a grade for it
+            if (lengua_cooficial > 0) {
+                mandatorySubjects.push(lengua_cooficial);
+            }
+
+            const mandatoryAverage = mandatorySubjects.reduce((sum, grade) => sum + grade, 0) / mandatorySubjects.length;
+
+            // Calculate base score (60% bachiller + 40% mandatory)
+            const bachillerContribution = bachiller * 0.6;
+            const mandatoryContribution = mandatoryAverage * 0.4;
+            const accessPhaseScore = bachillerContribution + mandatoryContribution;
+
+            // Calculate voluntary subjects contribution
+            let voluntaryContribution = 0;
+            const voluntarySubjects = [];
+
+            if (materia1_type && materia1 > 0) {
+                voluntarySubjects.push({ grade: materia1, weight: 0.2 });
+            }
+            if (materia2_type && materia2 > 0) {
+                voluntarySubjects.push({ grade: materia2, weight: 0.2 });
+            }
+
+            if (voluntarySubjects.length > 0) {
+                const sortedVoluntary = voluntarySubjects
+                    .map(sub => ({ ...sub, weightedScore: sub.grade * sub.weight }))
+                    .sort((a, b) => b.weightedScore - a.weightedScore)
+                    .slice(0, 2);
+
+                voluntaryContribution = sortedVoluntary.reduce((sum, sub) => sum + sub.weightedScore, 0);
+                voluntaryContribution = Math.min(4, voluntaryContribution);
+            }
+
+            const finalScore = Math.max(0, Math.min(14, accessPhaseScore + voluntaryContribution));
+
+            // Display results
+            document.getElementById('finalScore').textContent = finalScore.toFixed(3);
+            document.getElementById('mandatoryAverage').textContent = mandatoryAverage.toFixed(3);
+            document.getElementById('accessPhaseScore').textContent = accessPhaseScore.toFixed(3);
+            document.getElementById('bachillerContribution').textContent = bachillerContribution.toFixed(3);
+            document.getElementById('mandatoryContribution').textContent = mandatoryContribution.toFixed(3);
+            document.getElementById('voluntaryContribution').textContent = voluntaryContribution.toFixed(3);
+
+            // Show results breakdown
+            document.getElementById('resultsBreakdown').classList.remove('hidden');
+            document.getElementById('resultsBreakdown').classList.add('fade-in');
+
+            // Update advice
+            const adviceElement = document.getElementById('advice');
+            if (finalScore >= 12) {
+                adviceElement.textContent = '¡Excelente nota! Tienes muy buenas posibilidades de acceder a cualquier carrera.';
+            } else if (finalScore >= 9) {
+                adviceElement.textContent = 'Buena nota. Podrás acceder a la mayoría de carreras universitarias.';
+            } else if (finalScore >= 7) {
+                adviceElement.textContent = 'Nota suficiente para acceder a muchas carreras. Considera mejorar en la fase voluntaria.';
+            } else if (finalScore >= 5) {
+                adviceElement.textContent = 'Has aprobado la EBAU. Puedes acceder a algunas carreras universitarias.';
+            } else {
+                adviceElement.textContent = 'Necesitas al menos un 5.0 para aprobar la EBAU. Revisa tus notas.';
+            }
+        }
+
+        // Auto-calculate when inputs change
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input[type="number"], select');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    // Auto-calculate if main fields are filled
+                    const bachiller = document.getElementById('bachiller').value;
+                    const lengua_castellana = document.getElementById('lengua_castellana').value;
+                    const historia = document.getElementById('historia').value;
+                    const idioma_extranjero = document.getElementById('idioma_extranjero').value;
+                    const materia_troncal = document.getElementById('materia_troncal').value;
+
+                    if (bachiller && lengua_castellana && historia && idioma_extranjero && materia_troncal) {
+                        calculateEBAU();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
