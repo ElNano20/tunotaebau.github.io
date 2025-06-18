@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Calculadora de nota de Selectividad (EBAU) para cualquier comunidad autónoma. Fácil, rápida y multilingüe." />
+    <meta name="keywords" content="calcular nota selectividad, EBAU, nota acceso universidad, calculadora selectividad, euskera, gallego, catalán, valenciano" />
+    <title>Calcular Nota Selectividad EBAU</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
+  </head>
+  <body>
+    <nav class="container-fluid">
+      <ul><li><strong>Nota Selectividad</strong></li></ul>
+      <ul>
+        <li><a href="#calculadora">Calculadora</a></li>
+        <li><a href="#info">¿Cómo funciona?</a></li>
+        <li><a href="#" role="button">Idioma</a></li>
+      </ul>
+    </nav>
+
+    <main class="container">
+      <div class="grid">
+        <section>
+          <hgroup>
+            <h2>Calcula tu nota de Selectividad (EBAU)</h2>
+            <h3>Adaptado a todas las comunidades autónomas</h3>
+          </hgroup>
+          <p>Introduce tus calificaciones y obtén al instante tu nota de acceso a la universidad. Compatible con euskera, gallego, catalán y valenciano.</p>
+          <figure>
+            <img src="https://images.unsplash.com/photo-1600195077078-36c3a79f3979" alt="Jóvenes estudiantes estudiando juntos" />
+            <figcaption><a href="https://unsplash.com/photos/s9CC2SKySJM" target="_blank">Imagen de Unsplash</a></figcaption>
+          </figure>
+
+          <h3 id="calculadora">Calculadora de Nota</h3>
+          <form class="grid" id="formulario">
+            <input type="number" step="0.01" min="0" max="10" id="bachiller" placeholder="Nota media de Bachillerato" required />
+            <input type="number" step="0.01" min="0" max="10" id="lengua_castellana" placeholder="Lengua Castellana y Literatura" required />
+            <input type="number" step="0.01" min="0" max="10" id="lengua_cooficial" placeholder="Lengua Cooficial (Euskera, Catalán...)" />
+            <input type="number" step="0.01" min="0" max="10" id="historia" placeholder="Historia de España o Historia de la Filosofía" required />
+            <input type="number" step="0.01" min="0" max="10" id="idioma_extranjero" placeholder="Idioma Extranjero (Inglés, Francés...)" required />
+            <input type="number" step="0.01" min="0" max="10" id="materia_troncal" placeholder="Materia Troncal de Modalidad" required />
+            <hr />
+            <input type="number" step="0.01" min="0" max="10" id="materia1" placeholder="Materia Voluntaria 1 (opcional)" />
+            <input type="number" step="0.01" min="0" max="10" id="materia2" placeholder="Materia Voluntaria 2 (opcional)" />
+            <button type="submit">Calcular Nota</button>
+          </form>
+
+          <p id="resultado" style="font-weight: bold; font-size: 1.2em; margin-top: 1rem;"></p>
+
+          <h3 id="info">¿Cómo se calcula?</h3>
+          <p>La nota de acceso se calcula con un 60% de la media de Bachillerato y un 40% de la media de las 4 o 5 asignaturas de la fase obligatoria, dependiendo de la comunidad autónoma. Las materias voluntarias suman puntos adicionales (hasta 4 puntos).</p>
+        </section>
+      </div>
+    </main>
+
+    <footer class="container">
+      <small><a href="#">Aviso legal</a> • <a href="#">Política de privacidad</a></small>
+    </footer>
+
+    <script>
+      document.getElementById('formulario').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const get = id => parseFloat(document.getElementById(id).value) || 0;
+
+        const bachiller = get('bachiller');
+        const castellano = get('lengua_castellana');
+        const cooficial = document.getElementById('lengua_cooficial').value.trim() !== '' ? get('lengua_cooficial') : null;
+        const historia = get('historia');
+        const idioma = get('idioma_extranjero');
+        const troncal = get('materia_troncal');
+
+        const obligatorias = [castellano, historia, idioma, troncal];
+        if (cooficial !== null) obligatorias.push(cooficial);
+
+        const mediaObligatoria = obligatorias.reduce((a, b) => a + b, 0) / obligatorias.length;
+        const notaAcceso = 0.6 * bachiller + 0.4 * mediaObligatoria;
+
+        const voluntaria1 = get('materia1');
+        const voluntaria2 = get('materia2');
+
+        let notaFinal = notaAcceso;
+        if (voluntaria1 > 5) notaFinal += (voluntaria1 - 5);
+        if (voluntaria2 > 5) notaFinal += (voluntaria2 - 5);
+        notaFinal = Math.min(notaFinal, 14).toFixed(2);
+
+        document.getElementById('resultado').textContent = `Tu nota final de acceso es: ${notaFinal}`;
+      });
+    </script>
+  </body>
+</html>
